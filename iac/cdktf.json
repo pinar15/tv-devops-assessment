@@ -1,0 +1,12 @@
+{
+  "language": "typescript",
+  "app": "npx ts-node main.ts",
+  "terraformProviders": [
+    "hashicorp/aws@~> 5.0"
+  ],
+  "codeMakerOutput": "generated",
+  "context": {
+    "awsRegion": "us-east-1",
+    "resourcePrefix": "tv-app"
+  }
+}

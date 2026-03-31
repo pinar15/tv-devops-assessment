@@ -1,0 +1,20 @@
+{
+  "name": "tv-iac",
+  "version": "1.0.0",
+  "description": "CDKTF infrastructure for tv-app",
+  "main": "main.ts",
+  "scripts": {
+    "synth": "cdktf synth",
+    "deploy": "cdktf deploy",
+    "destroy": "cdktf destroy"
+  },
+  "dependencies": {
+    "cdktf": "^0.20.5",
+    "constructs": "^10.0.0",
+    "@cdktf/provider-aws": "^12.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}
