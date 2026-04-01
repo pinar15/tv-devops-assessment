@@ -86,4 +86,61 @@
 
 ---
 
-All changes above are required to meet the Dockerization and local dev environment requirements in the README.
+## [2026-03-31]
+
+### IaC Completion - ECS Service Deployment
+- **Action:** Added ECS Task Definition with container configuration for Fargate.
+- **Reason:** Required to run the application as a containerized service with CPU/memory specifications and environment variables.
+
+### Load Balancer Setup
+- **Action:** Added Application Load Balancer (ALB) with separate security groups for ALB and ECS.
+- **Reason:** To enable public HTTP/HTTPS access to the application with proper traffic routing and health checks.
+
+### HTTPS/SSL Configuration
+- **Action:** Added HTTPS listener on port 443 with SSL certificate, HTTP to HTTPS redirect, and ACM certificate validation.
+- **Reason:** To secure application endpoints with SSL/TLS encryption and enforce secure connection protocols.
+
+### ECS Service Configuration
+- **Action:** Added ECS Service running on Fargate with load balancer integration, health checks pointing to `/health` endpoint.
+- **Reason:** To manage container lifecycle, auto-scaling, and load balancer target group registration.
+
+### DNS and Domain Configuration (Optional)
+- **Action:** Made domain name optional; Route53 and ACM resources only created if domain is configured.
+- **Reason:** To support deployment without custom domain using ALB DNS name, or with custom domain for production use.
+
+### CloudWatch Logging
+- **Action:** Added CloudWatch log group and configured ECS task logging.
+- **Reason:** To enable application and infrastructure monitoring and debugging.
+
+### VPC Routing
+- **Action:** Added Route Table and Internet Gateway association for proper subnet routing.
+- **Reason:** To ensure subnets can route traffic to the internet via the internet gateway.
+
+### app/README.md
+- **Action:** Created comprehensive README.md in `app/` directory with local setup and CI/CD instructions.
+- **Reason:** To fulfill deliverable requirement: "README.md with local setup and CI/CD instructions"
+
+### AWS Credentials Management - Environment Variables
+- **Action:** Created `.env` and `.env.example` files for storing AWS credentials and configuration.
+- **Reason:** To provide secure credential management without committing secrets to version control.
+
+### Deployment Automation Scripts
+- **Action:** Added `deploy.sh` (macOS/Linux) and `deploy.bat` (Windows) scripts.
+- **Reason:** To automate the deployment process: load environment variables, install dependencies, and run CDKTF deploy.
+
+### IaC Environment Variable Support
+- **Action:** Updated `iac/main.ts` to read configuration from environment variables (AWS_REGION, RESOURCE_PREFIX, DOMAIN_NAME).
+- **Reason:** To enable configuration via .env file for easy multi-environment deployments and credential management.
+
+### Remove Hardcoded Domain Name
+- **Action:** Removed hardcoded domain name from `cdktf.json`; now read from environment variables.
+- **Reason:** To follow best practices of not hardcoding configuration values and enabling parameterization via .env.
+
+### Security Groups Separation
+- **Action:** Created separate security groups for ALB (allowing HTTP/HTTPS from 0.0.0.0/0) and ECS (allowing traffic from ALB only).
+- **Reason:** To implement least-privilege security: ALB is publicly accessible, ECS is only accessible from ALB.
+
+---
+
+All changes above are required to meet the Dockerization, IaC, and CI/CD requirements in the README.
+The deployment is now fully automated and ready for AWS account setup.
